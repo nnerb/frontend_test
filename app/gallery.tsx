@@ -108,7 +108,7 @@ const Gallery = () => {
                       <span className="info">{selectedProduct.name}</span>
                     </div>
                     <div className="description section">
-                      <span className="header section">Description:</span>
+                      <span className="header">Description:</span>
                       <span className="info">{selectedProduct.description}</span>
                     </div>
                     <div className="price section">
