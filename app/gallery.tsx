@@ -76,7 +76,7 @@ const Gallery = () => {
             onClick={() => handleModalOpen(product.id)}
           >
             <div className="body">
-              <Image src={product.image} alt={product.name} width={96} height={96} />
+              <Image src={product.image} alt={product.name} width={96} height={96} priority />
             </div>
             <div className="info">
               <div className="name">{product.name}</div>
