@@ -6,9 +6,14 @@
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     grid-gap: 16px;
+    overflow: hidden;
 
-    @media screen and (min-width: 768.1px) {
-      grid-template-columns: 1fr 1fr 1fr;
+    @media screen and (min-width: 700px) {
+      grid-template-columns: 1fr 1fr ;
+    }
+
+    @media screen and (min-width: 1150px) {
+      grid-template-columns: 1fr 1fr 1fr ;
     }
   }
 
