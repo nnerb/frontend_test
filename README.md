@@ -10,6 +10,12 @@ To run this project you will need Node JS (v16.8 or later). We recommend using [
 
 The package manager of choice for this project is yarn. You can install yarn by following this [guide](https://yarnpkg.com/getting-started/install)
 
+### Install Dependencies
+
+```bash
+  yarn install
+```
+
 ### Commands
 
 ```bash
