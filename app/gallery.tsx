@@ -100,7 +100,7 @@ const Gallery = () => {
               {selectedProduct && (
                 <div className="product-info info">
                   <div className="product-image">
-                    <Image src={selectedProduct.image} alt={selectedProduct.name} width={200} height={200} />
+                    <Image src={selectedProduct.image} alt={selectedProduct.name} width={200} height={200} priority />
                   </div>
                   <div className="product-modal-details">
                     <div className="name section">
