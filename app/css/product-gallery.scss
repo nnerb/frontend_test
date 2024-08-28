@@ -1,0 +1,14 @@
+.product-gallery {
+  width: 100%;
+  overflow: hidden;
+
+  > .items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(363px, 1fr));
+    grid-gap: 16px;
+  }
+
+  > .heading + .products {
+    margin-top: 32px;
+  }
+}
