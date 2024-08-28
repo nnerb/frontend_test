@@ -29,7 +29,8 @@
     flex: 0 0 16px;
   }
 
-  > .field > .value {
+  > .field > .value,
+    .field > .data {
     color: #7a869a;
   }
 
@@ -42,7 +43,8 @@
     font-style: italic;
   }
 
-  > .field > .icon + .value {
+  > .field > .icon + .value,
+    .field > .data {
     margin-left: 8px;
   }
 }
