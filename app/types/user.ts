@@ -9,14 +9,6 @@ export type User = {
   company: Company;
 };
 
-export type APIProducts = {
-  id: number
-  name: string
-  description: string
-  price: number
-  image: string
-  rating: number
-}
 
 export type Address = {
   street: string;

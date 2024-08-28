@@ -7,7 +7,7 @@ import {
   FaRegCircleXmark,
 } from "react-icons/fa6";
 import Image from "next/image";
-import { APIProducts } from "./types/user";
+import { APIProducts } from "./types/product";
 
 import spinner from "../public/spinner.svg"
 
