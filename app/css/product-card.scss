@@ -1,4 +1,4 @@
-.user-card {
+.product-card {
   display: flex;
   flex-flow: row nowrap;
 
@@ -10,6 +10,7 @@
 
   &:hover {
     background-color: #dfe1e6;
+    cursor: pointer;
   }
 
   > .body {
@@ -31,11 +32,14 @@
   }
 
   > .info > .name {
-    font-size: 18px;
+    font-size: 1rem;
     font-weight: 600;
   }
 
-  > .info > .company {
+  > .info > .price {
+    margin-top: 0.5rem;
+    font-style: italic;
+    font-size: 0.8rem;
     color: #253858;
   }
 }

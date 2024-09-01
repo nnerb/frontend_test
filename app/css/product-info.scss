@@ -1,0 +1,33 @@
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  overflow: hidden;
+
+  .product-image {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .product-modal-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    .section {
+      display:flex;
+      gap: 1rem;
+      .header {
+        font-size: 1rem;
+        width: 100px;
+        font-weight: bold;
+        flex-shrink: 0;
+      }
+      .info {
+        color: #253858;
+        font-size: 0.80rem;
+      }
+
+    }
+  }
+}

@@ -1,66 +1,91 @@
 "use client";
 
-import { useState } from "react";
-import Avatar from "boring-avatars";
+import { CSSProperties, useEffect, useState } from "react";
+import Modal from "./modal";
+import axios from "axios";
 import {
   FaRegCircleXmark,
-  FaLocationDot,
-  FaPhone,
-  FaEnvelope,
 } from "react-icons/fa6";
+import Image from "next/image";
+import { APIProducts } from "./types/product";
 
-import Modal from "./modal";
+import spinner from "../public/spinner.svg"
 
-import { User } from "./types/user";
-
-export type GalleryProps = {
-  users: User[];
+const override: CSSProperties = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "red",
 };
-const Gallery = ({ users }: GalleryProps) => {
-  const [usersList, setUsersList] = useState(users);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
+const Gallery = () => {
+  const [productsList, setProductsList] = useState<APIProducts[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<APIProducts | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("https://freetestapi.com/api/v1/products?limit=10")
+        setProductsList(response.data)
+        setLoading(false)
+      } catch (error) {
+        setError("Failed to fetch products")
+        console.log('Error fetching products: ', error)
+      }
+    }
+    fetchProducts()
+  }, [])
 
   const handleModalOpen = (id: number) => {
-    const user = usersList.find((item) => item.id === id) || null;
+    const product = productsList.find((item) => item.id === id) || null
 
-    if(user) {
-      setSelectedUser(user);
-      setIsModalOpen(true);
+    if (product) {
+      setSelectedProduct(product)
+      setIsModalOpen(true)
     }
-  };
+  }
 
   const handleModalClose = () => {
-    setSelectedUser(null);
-    setIsModalOpen(false);
-  };
+    setSelectedProduct(null)
+    setIsModalOpen(false)
+  }
+
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+        <p>Fetching data..</p>
+        <Image src={spinner} alt=""/>
+      </div>
+    )
+  }
+
+  if (error) {
+    return <div>{error}</div>
+  }
 
   return (
-    <div className="user-gallery">
-      <h1 className="heading">Users</h1>
+    <div className="product-gallery">
+      <h1 className="heading">Products</h1>
       <div className="items">
-        {usersList.map((user, index) => (
+        {productsList.map((product) => (
           <div
-            className="item user-card"
-            key={index}
-            onClick={() => handleModalOpen(user.id)}
+            className="item product-card"
+            key={product.id}
+            onClick={() => handleModalOpen(product.id)}
           >
             <div className="body">
-              <Avatar
-                size={96}
-                name={user.name}
-                variant="marble"
-                colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]}
-              />
+              <Image src={product.image} alt={product.name} width={96} height={96} priority />
             </div>
             <div className="info">
-              <div className="name">{user.name}</div>
-              <div className="company">{user.company.name}</div>
+              <div className="name">{product.name}</div>
+              <div className="price">${product.price}</div>
             </div>
           </div>
         ))}
         <Modal isOpen={isModalOpen} onClose={handleModalClose}>
-          <div className="user-panel">
+          <div className="product-panel">
             <div className="header">
               <div
                 role="button"
@@ -72,41 +97,23 @@ const Gallery = ({ users }: GalleryProps) => {
               </div>
             </div>
             <div className="body">
-              {selectedUser && (
-                <div className="user-info info">
-                  <div className="avatar">
-                    <Avatar
-                      size={240}
-                      name={selectedUser.name}
-                      variant="marble"
-                      colors={[
-                        "#92A1C6",
-                        "#146A7C",
-                        "#F0AB3D",
-                        "#C271B4",
-                        "#C20D90",
-                      ]}
-                    />
+              {selectedProduct && (
+                <div className="product-info info">
+                  <div className="product-image">
+                    <Image src={selectedProduct.image} alt={selectedProduct.name} width={200} height={200} priority />
                   </div>
-                  <div className="name">
-                    {selectedUser.name} ({selectedUser.username})
-                  </div>
-                  <div className="field">
-                    <FaLocationDot className="icon" />
-                    <div className="data">{`${selectedUser.address.street}, ${selectedUser.address.suite}, ${selectedUser.address.city}`}</div>
-                  </div>
-                  <div className="field">
-                    <FaPhone className="icon" />
-                    <div className="value">{selectedUser.phone}</div>
-                  </div>
-                  <div className="fields">
-                    <FaEnvelope className="icon" />
-                    <div className="value">{selectedUser.email}</div>
-                  </div>
-                  <div className="company">
-                    <div className="name">{selectedUser.company.name}</div>
-                    <div className="catchphrase">
-                      {selectedUser.company.catchPhrase}
+                  <div className="product-modal-details">
+                    <div className="name section">
+                      <span className="header">Name:</span>
+                      <span className="info">{selectedProduct.name}</span>
+                    </div>
+                    <div className="description section">
+                      <span className="header">Description:</span>
+                      <span className="info">{selectedProduct.description}</span>
+                    </div>
+                    <div className="price section">
+                      <span className="header">Price:</span>
+                      <span className="info">${selectedProduct.price}</span>
                     </div>
                   </div>
                 </div>
@@ -116,7 +123,7 @@ const Gallery = ({ users }: GalleryProps) => {
         </Modal>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Gallery;
+export default Gallery

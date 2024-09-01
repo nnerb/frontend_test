@@ -9,6 +9,7 @@ export type User = {
   company: Company;
 };
 
+
 export type Address = {
   street: string;
   suite: string;
